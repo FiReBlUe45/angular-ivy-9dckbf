@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { ProductService } from "./../product.service";
+import { ProductService } from './../product.service';
 
 @Component({
-  selector: "app-productadd",
-  templateUrl: "./productadd.component.html",
-  styleUrls: ["./productadd.component.css"]
+  selector: 'app-productadd',
+  templateUrl: './productadd.component.html',
+  styleUrls: ['./productadd.component.css'],
 })
 export class ProductaddComponent implements OnInit {
   status: number;
@@ -16,20 +16,20 @@ export class ProductaddComponent implements OnInit {
 
   //Create form
   productForm = new FormGroup({
-    _id: new FormControl(""),
+    _id: new FormControl(''),
     name: new FormControl(
-      "",
+      '',
       Validators.compose([Validators.required, Validators.minLength(3)])
     ),
     price: new FormControl(
-      "",
+      '',
       Validators.compose([
         Validators.required,
-        Validators.pattern("[0-9]+"),
+        Validators.pattern('[0-9]+'),
         Validators.min(0),
-        Validators.max(2147483647)
+        Validators.max(2147483647),
       ])
-    )
+    ),
   });
 
   constructor(
@@ -38,19 +38,19 @@ export class ProductaddComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
   ngOnInit() {
-    this._id = this.route.snapshot.paramMap.get("_id");
+    this._id = this.route.snapshot.paramMap.get('_id');
     //console.log(this._id);
     if (this._id != null) {
       this.service.getProductById(this._id).subscribe(
-        product => {
+        (product) => {
           //console.log(product);
           this.productForm.setValue({
             _id: product._id,
             name: product.name,
-            price: product.price
+            price: `${product.price}`,
           });
         },
-        error => {
+        (error) => {
           this.status = error.status;
           this.message = error.message;
         }
@@ -66,27 +66,27 @@ export class ProductaddComponent implements OnInit {
     //Form is valid, now perform create or update
     let product = this.productForm.value;
     //console.log(product);
-    if (product._id == null || product._id == "") {
+    if (product._id == null || product._id == '') {
       //Create product
-      product._id = "";
-      this.service.createProduct(product).subscribe(
-        status => {
+      product._id = '';
+      this.service.createProduct(product as any).subscribe(
+        (status) => {
           this.status = status;
-          this.router.navigate(["productlist"]);
+          this.router.navigate(['productlist']);
         },
-        error => {
+        (error) => {
           this.status = error.status;
           this.message = error.message;
         }
       );
     } else {
       //Update product
-      this.service.updateProduct(product).subscribe(
-        status => {
+      this.service.updateProduct(product as any).subscribe(
+        (status) => {
           this.status = status;
-          this.router.navigate(["productlist"]);
+          this.router.navigate(['productlist']);
         },
-        error => {
+        (error) => {
           this.status = error.statusCode;
           this.message = error.message;
         }

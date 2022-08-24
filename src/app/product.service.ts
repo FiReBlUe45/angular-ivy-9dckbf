@@ -4,7 +4,7 @@ import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
-import { Product, ResponseResult } from './models';
+import { Product } from './models';
 
 @Injectable()
 export class ProductService {
@@ -15,8 +15,8 @@ export class ProductService {
   //Create constructor to get Http instance
   constructor(private http: HttpClient) {}
   //Fetch all products
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl);
+  getProducts(): Observable<any> {
+    return this.http.get(this.apiUrl);
   }
   //Create product
   createProduct(product: Product): Observable<any> {

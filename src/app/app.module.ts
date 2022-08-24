@@ -2,8 +2,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule, Routes} from '@angular/router';
-import { AlertModule } from 'ngx-bootstrap';
+import { RouterModule, Routes } from '@angular/router';
+// import { AlertModule } from 'ngx-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 
 // components
@@ -26,7 +26,7 @@ const appRoutes: Routes = [
   { path: 'productadd', component: ProductaddComponent },
   { path: 'productadd/:_id', component: ProductaddComponent },
   // otherwise redirect to home
-  {path: '**', redirectTo: ''}
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
@@ -37,16 +37,16 @@ const appRoutes: Routes = [
     MainpageComponent,
     ProductlistComponent,
     ProductaddComponent,
-    DisablecontrolDirective
+    DisablecontrolDirective,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
-    AlertModule.forRoot(),
-    HttpClientModule
+    // AlertModule.forRoot(),
+    HttpClientModule,
   ],
   providers: [ProductService, ErrorInterceptorProvider],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

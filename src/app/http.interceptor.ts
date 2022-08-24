@@ -23,9 +23,6 @@ export class ErrorInterceptor implements HttpInterceptor {
   }
 }
 
-/**
- * Provider POJO for the interceptor
- */
 export const ErrorInterceptorProvider = {
   provide: HTTP_INTERCEPTORS,
   useClass: ErrorInterceptor,
